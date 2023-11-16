@@ -3,14 +3,13 @@ import random
 
 app = Flask(__name__)
 
-# casino data array
+# RNG data array
 rngData = []
 
 # GET method
 @app.route('/api/rng', methods=['GET'])
 def getRng():
     return jsonify({"rng": rngData})
-
 
 # POST method
 @app.route('/api/rng', methods=['POST'])
@@ -43,6 +42,26 @@ def addRngItem():
 
     return jsonify({"message": "Data added successfully", "rngData": newData}), 201
 
+# PUT method
+@app.route('/api/rng/<int:rngId>', methods=['PUT'])
+def updateRngItem(rngId):
+    for item in rngData:
+        if item['id'] == rngId:
+            data = request.get_json()
+            item.update(data)
+            return jsonify({"message": f"RNG item {rngId} updated successfully", "rngData": item})
+
+    return jsonify({"message": f"RNG item {rngId} not found"}), 404
+
+# DELETE method
+@app.route('/api/rng/<int:rngId>', methods=['DELETE'])
+def deleteRngItem(rngId):
+    for index, item in enumerate(rngData):
+        if item['id'] == rngId:
+            deleteItem = rngData.pop(index)
+            return jsonify({"message": f"RNG item {rngId} deleted successfully", "rngData": deleteItem})
+
+    return jsonify({"message": f"RNG item {rngId} not found"}), 404
 
 if __name__ == '__main__':
     app.run(debug=True)
