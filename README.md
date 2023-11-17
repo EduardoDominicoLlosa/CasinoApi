@@ -71,6 +71,22 @@ Response:
     }
 }
 
+PUT /api/rng/{rngId}
+
+Update an existing RNG item.
+* Method: PUT
+>URL: /api/rng/{rngId} (replace {rngId} with the ID of the RNG item)
+
+>Body: JSON object with the fields to be updated
+
+DELETE /api/rng/{rngId}
+
+Delete an existing RNG item.
+
+* Method: DELETE
+>URL: /api/rng/{rngId} (replace {rngId} with the ID of the RNG item)
+
+
 Customization
 * Adjust the rngData array in rng_api.py to customize the initial RNG items.
 * Modify the random number generation and winning conditions based on your specific logic.
